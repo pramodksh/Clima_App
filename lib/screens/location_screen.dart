@@ -26,6 +26,9 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void changeUI(dynamic weatherInfo){
     temperature = weatherInfo['main']['temp'];
+    temperature = temperature.toInt();
+    condition = weatherInfo['weather'][0]['description'];
+    cityName = weatherInfo['name'];
     print(temperature);
   }
   Widget build(BuildContext context) {
@@ -69,12 +72,15 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '${temperature}°',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
-                      style: kConditionTextStyle,
+                      // '☀️',
+                      "\n${condition}",
+                      style: TextStyle(fontSize: 30
+
+                      ),
                     ),
                   ],
                 ),
@@ -82,7 +88,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco! ",
+                  "It's 🍦 time in ${cityName}! ",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
