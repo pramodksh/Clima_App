@@ -35,7 +35,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     latitude = await myLocation.getLat();
     var res = await OpenWeatherAPI(OpenWeatherAPIUrl: 'https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b013729da264a9f8bb365ba74e4f4c89&units=metric');
     result = await res.getWeatherData();
-    
+    // print("Result : ${result}");
     Navigator.push(context, MaterialPageRoute(builder: (context){
       return LocationScreen( locationWeather:result);
     }));
