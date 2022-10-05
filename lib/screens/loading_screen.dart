@@ -33,7 +33,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await myLocation.getCurrentLocation();
     longitude = await myLocation.getLong();
     latitude = await myLocation.getLat();
-    var res = await OpenWeatherAPI(OpenWeatherAPIUrl: 'https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b013729da264a9f8bb365ba74e4f4c89&units=metric');
+    var res = await OpenWeatherAPI(OpenWeatherAPIUrl: 'https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${dotenv.env['openWeatherAPIKey']}&units=metric');
+    if(res == null){
+      print("check API ");
+    }
     result = await res.getWeatherData();
     // print("Result : ${result}");
     Navigator.push(context, MaterialPageRoute(builder: (context){

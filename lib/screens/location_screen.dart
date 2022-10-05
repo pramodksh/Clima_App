@@ -3,8 +3,8 @@ import 'package:clima/utilities/constants.dart';
 import 'package:clima/services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
-
   var locationWeather;
+
   LocationScreen({this.locationWeather});
 
   @override
@@ -19,23 +19,23 @@ class _LocationScreenState extends State<LocationScreen> {
   var cityName;
   var weatherIcon;
   var weatherMessage;
+  var location;
 
-  void initState(){
+  void initState() {
     print("See here --> ${widget.locationWeather}");
     changeUI(widget.locationWeather);
   }
 
-
-  void changeUI(dynamic weatherInfo)async{
-    setState((){
-      temperature =  weatherInfo['main']['temp'];
-      temperature =  temperature.toInt();
-      conditionId =  weatherInfo['weather'][0]['id'];
-      cityName =  weatherInfo['name'];
-      weatherIcon =  weather.getWeatherIcon(conditionId);
-      weatherMessage =  weather.getMessage(temperature);
+  void changeUI(dynamic weatherInfo) async {
+    setState(() {
+      temperature = weatherInfo['main']['temp'].toInt();
+      conditionId = weatherInfo['weather'][0]['id'];
+      cityName = weatherInfo['name'];
+      weatherIcon = weather.getWeatherIcon(conditionId);
+      weatherMessage = weather.getMessage(temperature);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,54 +51,56 @@ class _LocationScreenState extends State<LocationScreen> {
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.near_me,
-                      size: 50.0,
+              SizedBox(
+                height: 0,
+              ),
+              Column(
+                children: [
+                  Text(
+                    'Location :',
+                    style: TextStyle(
+                      fontSize: 60,
+                      color: Colors.white70
                     ),
+
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.location_city,
-                      size: 50.0,
+                  Text(
+                    '${cityName}',
+                    style: TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.w100,
+                      color: Colors.white
                     ),
                   ),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 15.0),
+                padding: EdgeInsets.only(left: 130.0),
                 child: Row(
                   children: <Widget>[
                     Text(
                       '${temperature}°',
                       style: kTempTextStyle,
                     ),
-                    // Text(
-                    //   '${conditionId}<-',
-                    //   style: TextStyle(fontSize: 20),
-                    // ),
                     Text(
-                      // '☀️',
-                        "${weatherIcon}",
+                      "${weatherIcon}",
                       style: kConditionTextStyle,
                     ),
                   ],
                 ),
               ),
+              SizedBox(height: 100,),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: EdgeInsets.only(right: 15.0, bottom: 50),
                 child: Text(
                   "${weatherMessage}",
                   textAlign: TextAlign.right,
-                  style: kMessageTextStyle,
+                  style: TextStyle(
+                    fontSize: 30
+                  ),
                 ),
               ),
             ],
